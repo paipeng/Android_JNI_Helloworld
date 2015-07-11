@@ -24,21 +24,19 @@ javah -d jni -cp pathTo/Library/Android/sdk/platforms/android-22/android.jar:../
 (under MAC OS X, the seperator is ':', under Windows it is ';')
 
 ## Create a C++ file with the auto generated function
-<code>
-JNIEXPORT jstring JNICALL Java_com_paipeng_jnihelloworld_MainActivity_jniHelloWorld
 
-  (JNIEnv *env, jobject thisObj) {
-
-    //return (*env)->NEWStringUTF(env, "HelloWorld from JNI");
-
-    return (env)->NewStringUTF("Hello from JNI !");
-
-  }
-</code>
+    JNIEXPORT jstring JNICALL Java_com_paipeng_jnihelloworld_MainActivity_jniHelloWorld(JNIEnv *env, jobject thisObj)  {
+      //return (*env)->NEWStringUTF(env, "HelloWorld from JNI"); // c
+      return (env)->NewStringUTF("Hello from JNI !"); // c++
+    }
 
 ## Add setting for NDK in gradle, adding the following code into "android -> defaultConfig"
-
+        
         ndk {
             moduleName "moduleHelloWorld"
         }
 
+## Load module in JAVA, add the following code into MainActivity Java class:
+    static {
+        System.loadLibrary("moduleHelloWorld");
+    }
