@@ -40,3 +40,9 @@ javah -d jni -cp pathTo/Library/Android/sdk/platforms/android-22/android.jar:../
     static {
         System.loadLibrary("moduleHelloWorld");
     }
+
+## Call JNI function
+        TextView jniTextView = (TextView) findViewById(R.id.jniTextView);
+        if (jniTextView != null) {
+            jniTextView.setText(jniHelloWorld());
+        }
